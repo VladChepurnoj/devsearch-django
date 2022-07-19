@@ -3,24 +3,6 @@ from django.http import HttpResponse
 from .models import Project
 from .forms import ProjectForm
 
-# projectsList = [
-#     {
-#         'id': '1',
-#         'title': "Ecommerce website",
-#         'description': 'Fully func site'
-#     },
-#     {
-#         'id': '2',
-#         'title': "Portfolio website",
-#         'description': 'Fully func Portfolio site'
-#     },
-#     {
-#         'id': '3',
-#         'title': "Social network",
-#         'description': 'Facebook clone'
-#     },
-# ]
-
 
 def projects(request):
     projects = Project.objects.all()
@@ -38,7 +20,7 @@ def createProject(request):
 
     if request.method == 'POST':
         # print(request.POST)
-        form = ProjectForm(request.POST)
+        form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('projects')
@@ -52,7 +34,7 @@ def updateProject(request, pk):
     form = ProjectForm(instance=project)
 
     if request.method == 'POST':
-        form = ProjectForm(request.POST, instance=project)
+        form = ProjectForm(request.POST, request.FILES, instance=project)
         if form.is_valid():
             form.save()
             return redirect('projects')
