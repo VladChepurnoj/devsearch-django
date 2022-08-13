@@ -1,3 +1,6 @@
-env
+.env
 static/images
 staticfiles/images
+
+
+/devsearch/settings
